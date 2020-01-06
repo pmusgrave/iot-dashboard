@@ -7,9 +7,17 @@ class SettingsPane extends Component {
     }
 
     render() {
+        if (this.props.selected_device.name == "lights") {
+            return (
+                <div>
+                    <h1>{this.props.selected_device.name}</h1>
+                    <h1>{this.props.selected_device.color}</h1>
+                </div>
+            );
+        }
         return (
             <div>
-                <h1>{this.props.selected_device}</h1>
+                <h1>{this.props.selected_device.name}</h1>
             </div>
         );
     }

@@ -18,9 +18,9 @@ class DeviceList extends Component {
         return (
             <div>
                 <table>
-                {this.state.devices.map((list_item) => {
+                {Object.keys(this.state.devices).map((list_item) => {
                     return <tr>
-                        <td><button onClick={() => {this.set_device(list_item["name"])}}>{list_item["name"]}</button></td>
+                        <td><button onClick={() => {this.set_device(list_item)}}>{list_item}</button></td>
                         </tr>
                     })}
                 <tr>
