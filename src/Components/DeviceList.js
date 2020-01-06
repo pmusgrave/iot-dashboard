@@ -18,14 +18,14 @@ class DeviceList extends Component {
         return (
             <div>
                 <table>
-                {Object.keys(this.state.devices).map((list_item) => {
-                    return <tr>
-                        <td><button onClick={() => {this.set_device(list_item)}}>{list_item}</button></td>
+                    {Object.keys(this.state.devices).map((list_item) => {
+                        return <tr>
+                            <td><button onClick={() => {this.set_device(list_item)}}>{list_item}</button></td>
                         </tr>
                     })}
-                <tr>
-            </tr>
-          </table>
+                    <tr>
+                    </tr>
+                </table>
             </div>
         );
     }

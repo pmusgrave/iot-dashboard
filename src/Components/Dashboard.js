@@ -12,9 +12,9 @@ class Dashboard extends Component {
         let lights = new Device("Lights");
         lights.color = {
             "R": 255,
-            "G": 255,
-            "B": 255,
-        }
+            "G": 155,
+            "B": 55,
+        };
         let sensortag = new Device("Sensortag");
 
         this.state = {
@@ -28,15 +28,32 @@ class Dashboard extends Component {
     }
 
     set_device(device_id) {
-        this.setState({selected_device:this.state.devices[device_id]});
+        this.setState({
+            selected_device: this.state.devices[device_id]
+        });
         console.log(device_id);
+    }
+
+    light_value_change (color, value){
+        let new_devices = Object.assign({}, this.state.devices);
+        new_devices["Lights"].color[color] = value;
+        this.setState({
+            devices: new_devices,
+            selected_device: new_devices["Lights"],
+        });
     }
 
     render() {
         return (
             <div>
-                <DeviceList devices={this.state.devices} set_device={this.set_device.bind(this)}/>
-                <SettingsPane selected_device={this.state.selected_device}/>
+                <DeviceList 
+                    devices={this.state.devices} 
+                    set_device={this.set_device.bind(this)}
+                />
+                <SettingsPane 
+                    selected_device={this.state.selected_device}
+                    light_value_change={this.light_value_change.bind(this)}
+                />
             </div>
         );
     }
