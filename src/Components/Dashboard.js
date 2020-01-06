@@ -8,7 +8,6 @@ class Dashboard extends Component {
     constructor(props) {
         super(props);
 
-        let init = new Device("Hello world");
         let lights = new Device("Lights");
         lights.color = {
             "R": 255,
@@ -18,11 +17,10 @@ class Dashboard extends Component {
         let sensortag = new Device("Sensortag");
 
         this.state = {
-            selected_device: init,
+            selected_device: sensortag,
             devices: {}
         };
 
-        this.state.devices[init.name] = init;
         this.state.devices[lights.name] = lights;
         this.state.devices[sensortag.name] = sensortag;
     }
