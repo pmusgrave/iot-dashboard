@@ -22,6 +22,7 @@ class LightsSettings extends Component {
                     value={this.props.selected_device.color["R"]}
                     max={255}
                     onChange={this.value_change.bind(this,"R")}
+                    onAfterChange={this.props.light_value_change_complete}
                 />
                 {this.props.selected_device.color["G"]}
                 <Slider 

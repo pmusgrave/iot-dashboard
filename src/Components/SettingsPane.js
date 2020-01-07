@@ -14,6 +14,7 @@ class SettingsPane extends Component {
                 <LightsSettings 
                     selected_device={this.props.selected_device}
                     light_value_change={this.props.light_value_change}
+                    light_value_change_complete={this.props.light_value_change_complete}
                 />
             );
         }

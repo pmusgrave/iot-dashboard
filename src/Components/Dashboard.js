@@ -4,6 +4,8 @@ import Device from '../Device.js';
 import DeviceList from './DeviceList.js';
 import SettingsPane from './SettingsPane.js';
 
+const request = require('browser-request');
+
 class Dashboard extends Component {
     constructor(props) {
         super(props);
@@ -17,7 +19,7 @@ class Dashboard extends Component {
         let sensortag = new Device("Sensortag");
 
         this.state = {
-            selected_device: sensortag,
+            selected_device: lights,
             devices: {}
         };
 
@@ -41,6 +43,24 @@ class Dashboard extends Component {
         });
     }
 
+    light_value_change_complete () {
+        let options = {
+            url: "/lights",
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                "R": this.state.devices["Lights"].color["R"],
+                "G": this.state.devices["Lights"].color["G"],
+                "B": this.state.devices["Lights"].color["B"]
+            })
+        };
+
+        request.post(options, (error, response, body) => {
+            if(error)
+                throw error;
+        });
+    }
+
     render() {
         return (
             <div>
@@ -51,6 +71,7 @@ class Dashboard extends Component {
                 <SettingsPane 
                     selected_device={this.state.selected_device}
                     light_value_change={this.light_value_change.bind(this)}
+                    light_value_change_complete={this.light_value_change_complete.bind(this)}
                 />
             </div>
         );
