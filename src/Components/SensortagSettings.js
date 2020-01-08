@@ -42,11 +42,11 @@ class SensortagSettings extends Component {
             data={this.state.data}
             margin={{ top: 5, right: 20, left: 10, bottom: 5 }}
           >
-              <XAxis dataKey="name" />
+              <XAxis dataKey="time" />
               <Tooltip />
               <CartesianGrid stroke="#f5f5f5" />
-              <Line type="monotone" dataKey="uv" stroke="#ff7300" yAxisId={0} />
-              <Line type="monotone" dataKey="pv" stroke="#387908" yAxisId={1} />
+              <Line type="monotone" dataKey="temperature" stroke="#ff7300" yAxisId={0} />
+              <Line type="monotone" dataKey="humidity" stroke="#387908" yAxisId={1} />
           </LineChart>
       </div>
     );

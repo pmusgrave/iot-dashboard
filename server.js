@@ -3,8 +3,7 @@ const app = express();
 const http = require('http').Server(app);
 const request = require('request');
 const body_parser = require('body-parser');
-const mongo = require('mongodb').MongoClient;
-const mongo_url = 'mongodb://raspberrypi3bp:27017/temperatures';
+const { Client } = require('pg');
 
 /******************************************************
 					EXPRESS
@@ -18,7 +17,7 @@ app.post('/lights', (req, res) => {
 	console.log(req.body);
 });
 
-const data = [
+let data = [
 	{ name: 'Page A', uv: 1000, pv: 2400, amt: 2400, uvError: [75, 20] },
 	{ name: 'Page B', uv: 300, pv: 4567, amt: 2400, uvError: [90, 40] },
 	{ name: 'Page C', uv: 280, pv: 1398, amt: 2400, uvError: 40 },
@@ -32,13 +31,22 @@ const data = [
 ];
 app.get('/temp', (req, res) => {
 	console.log('GET /temp');
-	res.json(data);
-	// console.log('Connecting to mongodb...');
-	// mongo.connect(mongo_url, (err,db) => {
-	// 	if(err) throw err;
-	// 	let collection = db.collection('temperatures').find;
-	// 	console.log(collection);
-	// });
+	console.log('Connecting to db...');
+	const client = new Client({
+	    user: 'sensortagdb',
+	    host: '192.168.200.164',
+	    database: 'sensortagdb',
+	    password: 'sensortagdb',
+	    port:5432,
+	});
+	client.connect();
+	client.query('SELECT * from temperatures,humidities WHERE temperatures.id = humidities.id;', (err,dbres) => {
+		if (err) throw err;
+		data = dbres.rows;
+		console.log(data);
+		res.json(data);
+		client.end();
+	});
 });
 
 /******************************************************
