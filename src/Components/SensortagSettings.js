@@ -34,7 +34,7 @@ class SensortagSettings extends Component {
 
   render() {
     return (
-      <div>
+      <div className="sensortag_settings">
           <h1>{this.props.selected_device.name}</h1>
           <LineChart
             width={400}

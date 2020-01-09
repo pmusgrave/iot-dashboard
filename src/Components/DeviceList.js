@@ -16,16 +16,22 @@ class DeviceList extends Component {
 
     render() {
         return (
-            <div>
-                <table>
+            <div id="menuToggle" className="device_list">
+                <input type="checkbox" />
+                <span></span>
+                <span></span>
+                <span></span>
+                <ul id="menu">
+                    <li> <h1>Devices</h1></li>
                     {Object.keys(this.state.devices).map((list_item) => {
                         return <tr>
-                            <td><button onClick={() => {this.set_device(list_item)}}>{list_item}</button></td>
+                            <li><button 
+                                className="list_item" 
+                                onClick={() => {this.set_device(list_item)}}>{list_item}
+                            </button></li>
                         </tr>
                     })}
-                    <tr>
-                    </tr>
-                </table>
+                </ul>
             </div>
         );
     }

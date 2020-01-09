@@ -14,7 +14,7 @@ class LightsSettings extends Component {
 
     render() {
         return (
-            <div>
+            <div className="lights_settings">
                 <h1>{this.props.selected_device.name}</h1>
                 <hr/>
                 {this.props.selected_device.color["R"]}
