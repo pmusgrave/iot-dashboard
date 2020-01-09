@@ -1,6 +1,6 @@
 html, body, #root, #root>div {
   height: 100%;
-  overflow:hidden;
+  overflow:auto;
 }
 
 .App {
@@ -42,16 +42,14 @@ hr {
 }
 
 .sensortag_settings {
-  width: 50%;
   margin: 0 auto;
   align-items: center;
+  vertical-align: bottom;
   justify-content: center;
   background-color: #282c34;
-  height:100vh;
 }
 
 .lights_settings {
-  width: 50%;
   margin: 0 auto;
   align-items: center;
   vertical-align: bottom;

@@ -22,7 +22,7 @@ class DeviceList extends Component {
                 <span></span>
                 <span></span>
                 <ul id="menu">
-                    <li> <h1>Devices</h1></li>
+                    <li> <h1 id="menu_header">Devices</h1></li>
                     {Object.keys(this.state.devices).map((list_item) => {
                         return <tr>
                             <li><button 
