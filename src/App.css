@@ -43,6 +43,16 @@ hr {
 
 .sensortag_settings {
   margin: 0 auto;
+  text-align: center;
+  align-items: center;
+  vertical-align: bottom;
+  justify-content: center;
+  background-color: #282c34;
+}
+
+.recharts-wrapper {
+  margin: 0 auto;
+  text-align: center;
   align-items: center;
   vertical-align: bottom;
   justify-content: center;
@@ -50,7 +60,6 @@ hr {
 }
 
 .lights_settings {
-  margin: 0 auto;
   align-items: center;
   vertical-align: bottom;
   justify-content: center;
