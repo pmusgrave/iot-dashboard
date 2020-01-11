@@ -5,7 +5,6 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts'
 const request = require('browser-request');
 
 let data = [];
-data = [21,22,21.3,21.4,22.5,22.6,22.7,22.8,22.9,22.10];
 
 class SensortagSettings extends Component {
   constructor(props) {
@@ -45,8 +44,8 @@ class SensortagSettings extends Component {
             margin={{ top: 5, right: 20, left: 10, bottom: 5 }}
           >
               <XAxis dataKey="time" />
-              <YAxis yAxisId={0} type="number" domain={[21,28]}/>
-              <YAxis yAxisId={1} orientation="right" type="number" domain={[0,100]}/>
+              <YAxis yAxisId={0} type="number" domain={[Math.min(this.state.data),Math.max(this.state.data)]}/>
+              <YAxis yAxisId={1} orientation="right" type="number" domain={[Math.min(this.state.data),Math.max(this.state.data)]}/>
               <Tooltip />
               <CartesianGrid stroke="#f5f5f5" />
               <Line type="monotone" dataKey="temperature" stroke="#ff7300" yAxisId={0} />
