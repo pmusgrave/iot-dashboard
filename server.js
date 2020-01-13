@@ -4,6 +4,8 @@ const http = require('http').Server(app);
 const request = require('request');
 const body_parser = require('body-parser');
 const { Client } = require('pg');
+const raspi = require('raspi');
+const Serial = require('raspi-serial').Serial;
 
 /******************************************************
 					EXPRESS
@@ -13,8 +15,12 @@ app.use(body_parser.json());
 app.use(express.static(__dirname + '/build'));
 
 app.post('/lights', (req, res) => {
-	console.log('POST /lights');
-	console.log(req.body);
+    console.log('POST /lights');
+    console.log(req.body);
+    let r = req.body["R"];
+    let g = req.body["G"];
+    let b = req.body["B"];
+    send_rgb(r,g,b);
 });
 
 let data;
@@ -42,12 +48,37 @@ app.get('/temp', (req, res) => {
 });
 
 /******************************************************
+Raspberry Pi Serial
+******************************************************/
+const serial_options = {
+    portId: "/dev/serial0",
+    baudRate: 9600,
+};
+raspi.init(() => {
+    send_rgb(0,0,0);
+});
+function send_rgb(r,g,b) {
+    var serial = new Serial(serial_options);
+    serial.open(() => {    
+	setTimeout(() => {
+	    serial.write("R"+String.fromCharCode(r));
+	}, 100);
+	setTimeout(() => {
+	    serial.write("G"+String.fromCharCode(g));
+	}, 500);
+	setTimeout(() => {
+	    serial.write("B"+String.fromCharCode(b));
+	}, 1000);
+    });
+}
+
+/******************************************************
 					HTTP SERVER
 ******************************************************/
-/*http.listen(80, function(){
+http.listen(80, function(){
   console.log('listening on port 80');
-});*/
-
-http.listen(8888, function(){
-	console.log('listening on port 8888');
 });
+
+/*http.listen(8888, function(){
+	console.log('listening on port 8888');
+});*/
