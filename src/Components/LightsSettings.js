@@ -3,9 +3,37 @@ import ReactDOM from 'react-dom';
 import Slider, { Range } from 'rc-slider';
 import 'rc-slider/assets/index.css';
 
+const request = require('browser-request');
+
 class LightsSettings extends Component {
     constructor(props) {
         super(props);
+
+        let options = {
+            url: "/lights",
+            method: "POST",
+            headers: { "Content-Type": "application/json" }
+            body: {
+                "R": this.props.selected_device.color["R"],
+                "G": this.props.selected_device.color["G"],
+                "B": this.props.selected_device.color["B"]
+            }
+        };
+
+        request.post(options, (error, response, body) => {
+        if(error)
+            throw error;
+        console.log(body);
+        data = JSON.parse(body);
+
+        this.setState({
+          data: data
+        });
+        });
+
+        this.state = {
+        data: data,
+        }
     }
 
     value_change(color, value) {
