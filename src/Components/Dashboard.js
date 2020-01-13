@@ -44,6 +44,7 @@ class Dashboard extends Component {
     }
 
     light_value_change_complete () {
+	console.log("function call");
         let options = {
             url: "/lights",
             method: "POST",
@@ -56,8 +57,11 @@ class Dashboard extends Component {
         };
 
         request.post(options, (error, response, body) => {
-            if(error)
+	    console.log("post");
+            if(error) {
+		console.log("error: " + error);
                 throw error;
+	    }
         });
     }
 

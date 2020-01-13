@@ -8,36 +8,26 @@ const request = require('browser-request');
 class LightsSettings extends Component {
     constructor(props) {
         super(props);
-
-        let options = {
-            url: "/lights",
-            method: "POST",
-            headers: { "Content-Type": "application/json" }
-            body: {
-                "R": this.props.selected_device.color["R"],
-                "G": this.props.selected_device.color["G"],
-                "B": this.props.selected_device.color["B"]
-            }
-        };
-
-        request.post(options, (error, response, body) => {
-        if(error)
-            throw error;
-        console.log(body);
-        data = JSON.parse(body);
-
-        this.setState({
-          data: data
-        });
-        });
-
-        this.state = {
-        data: data,
-        }
     }
 
     value_change(color, value) {
         this.props.light_value_change(color,value);
+
+	/*let options = {
+            url: "/lights",
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                "R": this.props.selected_device.color["R"],
+                "G": this.props.selected_device.color["G"],
+                "B": this.props.selected_device.color["B"]
+            })
+        };
+
+        request.post(options, (error, response, body) => {
+            if(error)
+		throw error;
+        });*/
     }
 
     render() {
@@ -56,13 +46,15 @@ class LightsSettings extends Component {
                 <Slider 
                     value={this.props.selected_device.color["G"]}
                     max={255}
-                    onChange={this.value_change.bind(this,"G")}
+            onChange={this.value_change.bind(this,"G")}
+	    onAfterChange={this.props.light_value_change_complete}
                 />
                 {this.props.selected_device.color["B"]}
                 <Slider 
                     value={this.props.selected_device.color["B"]}
                     max={255}
-                    onChange={this.value_change.bind(this,"B")}
+            onChange={this.value_change.bind(this,"B")}
+	    onAfterChange={this.props.light_value_change_complete}
                 />
             </div>
         );

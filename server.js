@@ -7,6 +7,8 @@ const { Client } = require('pg');
 const raspi = require('raspi');
 const Serial = require('raspi-serial').Serial;
 
+process.setMaxListeners(0);
+
 /******************************************************
 					EXPRESS
 ******************************************************/
@@ -21,6 +23,7 @@ app.post('/lights', (req, res) => {
     let g = req.body["G"];
     let b = req.body["B"];
     send_rgb(r,g,b);
+    res.send("ok");
 });
 
 let data;
@@ -59,17 +62,11 @@ raspi.init(() => {
 });
 function send_rgb(r,g,b) {
     var serial = new Serial(serial_options);
-    serial.open(() => {    
-	setTimeout(() => {
-	    serial.write("R"+String.fromCharCode(r));
-	}, 100);
-	setTimeout(() => {
-	    serial.write("G"+String.fromCharCode(g));
-	}, 500);
-	setTimeout(() => {
-	    serial.write("B"+String.fromCharCode(b));
-	}, 1000);
-    });
+    serial.open(),
+    setTimeout(()=> {serial.write("R"+String.fromCharCode(r))},100);
+    setTimeout(()=> {serial.write("G"+String.fromCharCode(g))},200);
+    setTimeout(()=> {serial.write("B"+String.fromCharCode(b))},300);
+    setTimeout(()=> {serial.close()}, 500);
 }
 
 /******************************************************
