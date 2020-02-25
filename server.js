@@ -70,6 +70,25 @@ function send_rgb(r,g,b) {
 }
 
 /******************************************************
+MQTT
+******************************************************/
+var mqtt = require('mqtt');
+var client  = mqtt.connect('mqtt://localhost');
+client.on('connect', function () {
+    client.subscribe('run', function (err) {
+	if (!err) {
+	    // client.publish('run', 'Hello mqtt')
+	    console.log("Connected to MQTT broker.")
+	}
+    })
+})
+
+client.on('message', function (topic, message) {
+    console.log(message.toString())
+    // client.end()
+})
+
+/******************************************************
 					HTTP SERVER
 ******************************************************/
 http.listen(80, function(){
