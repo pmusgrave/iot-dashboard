@@ -29,7 +29,7 @@ app.post('/lights', (req, res) => {
 let data;
 app.get('/temp', (req, res) => {
 	console.log('GET /temp');
-	console.log('Connecting to db...');
+	console.log('Connecting to sensortagdb...');
 	const client = new Client({
 	    user: 'sensortagdb',
 	    host: '192.168.200.164',
@@ -73,18 +73,38 @@ function send_rgb(r,g,b) {
 MQTT
 ******************************************************/
 var mqtt = require('mqtt');
-var client  = mqtt.connect('mqtt://localhost');
-client.on('connect', function () {
-    client.subscribe('run', function (err) {
-	if (!err) {
-	    // client.publish('run', 'Hello mqtt')
-	    console.log("Connected to MQTT broker.")
-	}
+var mqtt_client  = mqtt.connect('mqtt://localhost');
+mqtt_client.on('connect', function () {
+    mqtt_client.subscribe('run', function (err) {
+		if (!err) {
+		    console.log("Connected to MQTT broker.");
+		}
     })
 })
 
-client.on('message', function (topic, message) {
+mqtt_client.on('message', function (topic, message) {
+	const run_data = JSON.parse(message);
     console.log(message.toString())
+    console.log('Connecting to runlog db...');
+	const psql_client = new Client({
+	    user: 'postgres',
+	    host: '192.168.200.164',
+	    database: 'runlog',
+	    password: 'runlog',
+	    port:5432,
+	});
+
+	psql_client.connect();
+
+	let query = {
+        text: 'INSERT INTO runs (start_time, distance, duration) VALUES ($1, $2, $3);',
+        values: [run_data.date, run_data.distance, run_data.duration]
+    };
+
+    psql_client.query(query, (err,res) => {
+        console.log(err,res);
+        psql_client.end();                                                                                                                            
+    });
     // client.end()
 })
 
