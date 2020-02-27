@@ -87,17 +87,17 @@ mqtt_client.on('message', function (topic, message) {
     console.log(message.toString())
     console.log('Connecting to runlog db...');
 	const psql_client = new Client({
-	    user: 'postgres',
+	    user: 'sensortagdb',
 	    host: '192.168.200.164',
 	    database: 'runlog',
-	    password: 'runlog',
+	    password: 'sensortagdb',
 	    port:5432,
 	});
 
 	psql_client.connect();
 
 	let query = {
-        text: 'INSERT INTO runs (start_time, distance, duration) VALUES ($1, $2, $3);',
+        text: 'INSERT INTO runs (start_time, distance_m, duration) VALUES ($1, $2, $3);',
         values: [run_data.date, run_data.distance, run_data.duration]
     };
 
