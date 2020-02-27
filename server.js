@@ -67,7 +67,7 @@ app.get('/runs', (req, res) => {
 		data = dbres.rows;
 		console.log(data);
 		res.json(data);
-		client.end();
+		psql_client.end();
 	});
 });
 /******************************************************
