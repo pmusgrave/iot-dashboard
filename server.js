@@ -50,6 +50,26 @@ app.get('/temp', (req, res) => {
 	});
 });
 
+app.get('/runs', (req, res) => { 
+	console.log('GET /runs');
+	console.log('Connecting to runlog db...');
+	const psql_client = new Client({
+	    user: 'sensortagdb',
+	    host: '192.168.200.164',
+	    database: 'runlog',
+	    password: 'sensortagdb',
+	    port:5432,
+	});
+
+	psql_client.connect();
+	client.query('SELECT * from runs;',	(err,dbres) => {
+		if (err) throw err;
+		data = dbres.rows;
+		console.log(data);
+		res.json(data);
+		client.end();
+	});
+});
 /******************************************************
 Raspberry Pi Serial
 ******************************************************/
