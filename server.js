@@ -62,7 +62,7 @@ app.get('/runs', (req, res) => {
 	});
 
 	psql_client.connect();
-	client.query('SELECT * from runs;',	(err,dbres) => {
+	psql_client.query('SELECT * from runs;',	(err,dbres) => {
 		if (err) throw err;
 		data = dbres.rows;
 		console.log(data);
