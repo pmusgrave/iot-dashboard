@@ -72,6 +72,15 @@ hr {
   margin: 0 auto;
 }
 
+.runlog_settings {
+  margin: 0 auto;
+  text-align: center;
+  align-items: center;
+  vertical-align: bottom;
+  justify-content: center;
+  background-color: #282c34;
+}
+
 /********************************************************************
 only #menu and #menuToggle items:
  * Made by Erik Terwan

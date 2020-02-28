@@ -17,7 +17,7 @@ class Dashboard extends Component {
             "B": 55,
         };
         let sensortag = new Device("Sensortag");
-
+        let runlog = new Device("Runlog");
         this.state = {
             selected_device: lights,
             devices: {}
@@ -25,6 +25,7 @@ class Dashboard extends Component {
 
         this.state.devices[lights.name] = lights;
         this.state.devices[sensortag.name] = sensortag;
+        this.state.devices[runlog.name] = runlog;
     }
 
     set_device(device_id) {
