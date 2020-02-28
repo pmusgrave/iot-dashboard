@@ -25,6 +25,13 @@ class SettingsPane extends Component {
                 />
             );
         }
+        else if (this.props.selected_device.name == "Runlog") {
+            return (
+                <RunLogSettings 
+                    selected_device={this.props.selected_device}
+                />
+            );
+        }
         else {
             return (
                 <div>
