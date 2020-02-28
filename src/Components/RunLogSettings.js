@@ -36,19 +36,22 @@ class RunLogSettings extends Component {
     return (
       <div className="runlog_settings">
           <h1>{this.props.selected_device.name}</h1>
-          <ul id="runs">
-                <li> <h1 id="menu_header">Run Data</h1></li>
-                {Object.keys(this.state.data).map((list_item) => {
+            <table id="runs">
+                <tr>
+                    <td>Start Time</td>
+                    <td>Distance (meters)</td>
+                    <td>Duration</td>
+                </tr>
+                {this.state.data.map((list_item) => {
                     return <tr>
-                        <li>
-                            Start time: {list_item.start_time} 
-                            Distance (meters): {list_item.distance_m} 
-                            Duration: {list_item.duration} 
-                        </li>
+                        <td>{list_item.start_time.substring(0,list_item.start_time.indexOf("T"))}</td>
+                        <td>{list_item.distance_m}</td>
+                        <td>{list_item.duration}</td>
                     </tr>
                 })}
-            </ul>
+            </table>
       </div>
+
     );
   }
 }
