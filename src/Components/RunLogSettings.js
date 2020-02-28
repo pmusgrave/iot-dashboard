@@ -41,7 +41,9 @@ class RunLogSettings extends Component {
                 {Object.keys(this.state.data).map((list_item) => {
                     return <tr>
                         <li>
-                            className="list_item" 
+                            Start time: {list_item.start_time} 
+                            Distance (meters): {list_item.distance_m} 
+                            Duration: {list_item.duration} 
                         </li>
                     </tr>
                 })}
