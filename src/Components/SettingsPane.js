@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import LightsSettings  from './LightsSettings.js';
 import SensortagSettings from './SensortagSettings.js';
+import RunLogSettings from './RunLogSettings.js';
 
 class SettingsPane extends Component {
     constructor(props) {
